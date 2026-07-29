@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="950" viewBox="0 0 1800 950">
+  <defs>
+    <style>
+      .title { font: 700 34px Arial, sans-serif; fill: #172033; }
+      .section { font: 700 23px Arial, sans-serif; fill: #334155; }
+      .label { font: 700 20px Arial, sans-serif; fill: #172033; text-anchor: middle; }
+      .small { font: 400 17px Arial, sans-serif; fill: #475569; text-anchor: middle; }
+      .note { font: 400 18px Arial, sans-serif; fill: #334155; }
+      .node { stroke: #334155; stroke-width: 2; rx: 6; }
+      .arrow { fill: none; stroke: #475569; stroke-width: 3; marker-end: url(#arrow); }
+      .branch { fill: none; stroke: #b45309; stroke-width: 3; marker-end: url(#arrow-warning); }
+      .error { fill: none; stroke: #b91c1c; stroke-width: 3; marker-end: url(#arrow-error); }
+    </style>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0,0 L12,6 L0,12 Z" fill="#475569"/>
+    </marker>
+    <marker id="arrow-warning" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0,0 L12,6 L0,12 Z" fill="#b45309"/>
+    </marker>
+    <marker id="arrow-error" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0,0 L12,6 L0,12 Z" fill="#b91c1c"/>
+    </marker>
+  </defs>
+
+  <rect width="1800" height="950" fill="#ffffff"/>
+  <text x="900" y="60" class="title" text-anchor="middle">PiCan - User Flow (Day 1)</text>
+  <text x="70" y="130" class="section">Luồng chính</text>
+
+  <rect x="70" y="175" width="190" height="100" class="node" fill="#e0f2fe"/>
+  <text x="165" y="218" class="label">Đăng ký</text>
+  <text x="165" y="247" class="small">Tạo tài khoản</text>
+
+  <rect x="310" y="175" width="190" height="100" class="node" fill="#e0f2fe"/>
+  <text x="405" y="218" class="label">Đăng nhập</text>
+  <text x="405" y="247" class="small">Xác thực người dùng</text>
+
+  <rect x="550" y="175" width="190" height="100" class="node" fill="#ede9fe"/>
+  <text x="645" y="218" class="label">Gallery</text>
+  <text x="645" y="247" class="small">Thư viện cá nhân</text>
+
+  <rect x="790" y="175" width="190" height="100" class="node" fill="#fef3c7"/>
+  <text x="885" y="218" class="label">Upload tranh</text>
+  <text x="885" y="247" class="small">Chọn và tải file</text>
+
+  <rect x="1030" y="175" width="190" height="100" class="node" fill="#dcfce7"/>
+  <text x="1125" y="218" class="label">Lưu Gallery</text>
+  <text x="1125" y="247" class="small">Tạo artwork</text>
+
+  <rect x="1270" y="175" width="190" height="100" class="node" fill="#fef3c7"/>
+  <text x="1365" y="218" class="label">AI Check</text>
+  <text x="1365" y="247" class="small">Kiểm tra ảnh</text>
+
+  <rect x="1510" y="175" width="220" height="100" class="node" fill="#dcfce7"/>
+  <text x="1620" y="218" class="label">Thành công</text>
+  <text x="1620" y="247" class="small">Hiển thị kết quả</text>
+
+  <path d="M260 225 H310" class="arrow"/>
+  <path d="M500 225 H550" class="arrow"/>
+  <path d="M740 225 H790" class="arrow"/>
+  <path d="M980 225 H1030" class="arrow"/>
+  <path d="M1220 225 H1270" class="arrow"/>
+  <path d="M1460 225 H1510" class="arrow"/>
+
+  <text x="70" y="390" class="section">Nhánh ngoại lệ</text>
+
+  <rect x="650" y="520" width="470" height="120" class="node" fill="#fee2e2" stroke="#b91c1c"/>
+  <text x="885" y="563" class="label">Upload thất bại</text>
+  <text x="885" y="595" class="small">File không hợp lệ hoặc lỗi mạng</text>
+  <text x="885" y="620" class="small">Hiển thị lỗi và cho phép thử lại</text>
+  <path d="M885 275 V520" class="error"/>
+
+  <rect x="1160" y="520" width="370" height="120" class="node" fill="#ffedd5" stroke="#b45309"/>
+  <text x="1345" y="563" class="label">AI unavailable</text>
+  <text x="1345" y="595" class="small">Giữ artwork đã upload</text>
+  <text x="1345" y="620" class="small">Cho phép kiểm tra lại sau</text>
+
+  <rect x="1400" y="730" width="350" height="120" class="node" fill="#f3e8ff" stroke="#7e22ce"/>
+  <text x="1575" y="773" class="label">Nghi ngờ giả mạo</text>
+  <text x="1575" y="805" class="small">Lưu score và trạng thái</text>
+  <text x="1575" y="830" class="small">Hiển thị cảnh báo</text>
+
+  <path d="M1365 275 V450 H1345 V520" class="branch"/>
+  <path d="M1365 450 H1575 V730" class="branch"/>
+
+  <rect x="70" y="730" width="1120" height="120" rx="6" fill="#f8fafc" stroke="#94a3b8" stroke-width="2"/>
+  <text x="100" y="770" class="section">Quy tắc hoàn thành</text>
+  <text x="100" y="807" class="note">• Gallery yêu cầu đăng nhập. Upload thành công phải tạo artwork.</text>
+  <text x="100" y="837" class="note">• Lỗi AI không làm mất ảnh; mọi kết quả nghi ngờ phải được lưu lại.</text>
+</svg>

@@ -15,7 +15,8 @@ canvas để sắp xếp và ghi chú, sau đó gửi ảnh sang dịch vụ AI 
 - AC-006: Tạo skeleton Next.js TypeScript.
 - AC-007: Tạo skeleton FastAPI.
 
-Tài liệu chi tiết nằm trong [docs/day1](docs/day1/README.md).
+Tài liệu chính nằm trong [docs](docs/README.md); bản ghi theo đầu việc nằm trong
+[docs/day1](docs/day1/README.md).
 
 ## Cấu trúc
 
@@ -24,7 +25,7 @@ pican/
 ├── frontend/              # Next.js App Router + TypeScript
 ├── ai-service/            # FastAPI
 ├── supabase/              # PostgreSQL migration và RLS
-├── docs/day1/             # Nội dung đã hoàn thành trong sheet Day1
+├── docs/                  # MVP scope, user flow, architecture và ERD
 ├── .vscode/               # Cấu hình VS Code
 └── PiCan.code-workspace
 ```
@@ -33,6 +34,9 @@ pican/
 
 ```bash
 pnpm install
+pnpm lint:frontend
+pnpm typecheck:frontend
+pnpm build:frontend
 pnpm dev:frontend
 ```
 
@@ -54,6 +58,13 @@ uvicorn app.main:app --reload --port 8000
 ```
 
 API health check: `http://localhost:8000/health`.
+
+Chạy kiểm thử backend:
+
+```bash
+cd ai-service
+pytest
+```
 
 ## Biến môi trường
 

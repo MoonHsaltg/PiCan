@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2000" height="1320" viewBox="0 0 2000 1320">
+  <defs>
+    <style>
+      .title { font: 700 34px Arial, sans-serif; fill: #172033; }
+      .subtitle { font: 400 18px Arial, sans-serif; fill: #475569; }
+      .table-name { font: 700 23px Arial, sans-serif; fill: #ffffff; }
+      .field { font: 400 18px Consolas, monospace; fill: #172033; }
+      .key { font: 700 18px Consolas, monospace; fill: #0f3d66; }
+      .relation { fill: none; stroke: #475569; stroke-width: 3; marker-end: url(#arrow); }
+      .cardinality { font: 700 18px Arial, sans-serif; fill: #334155; }
+    </style>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0,0 L12,6 L0,12 Z" fill="#475569"/>
+    </marker>
+  </defs>
+
+  <rect width="2000" height="1320" fill="#ffffff"/>
+  <text x="1000" y="55" class="title" text-anchor="middle">PiCan - Logical ERD</text>
+  <text x="1000" y="88" class="subtitle" text-anchor="middle">6 bảng chuẩn hóa • PK = Primary Key • FK = Foreign Key • Quan hệ 1:N</text>
+
+  <!-- profiles -->
+  <rect x="800" y="120" width="400" height="205" rx="6" fill="#ffffff" stroke="#334155" stroke-width="2"/>
+  <rect x="800" y="120" width="400" height="52" rx="6" fill="#0f766e"/>
+  <rect x="800" y="165" width="400" height="7" fill="#0f766e"/>
+  <text x="1000" y="154" class="table-name" text-anchor="middle">profiles</text>
+  <text x="825" y="205" class="key">PK  id : uuid</text>
+  <text x="825" y="235" class="field">display_name : varchar(100)</text>
+  <text x="825" y="265" class="field">avatar_url : text NULL</text>
+  <text x="825" y="295" class="field">created_at, updated_at</text>
+
+  <!-- artworks -->
+  <rect x="120" y="440" width="520" height="365" rx="6" fill="#ffffff" stroke="#334155" stroke-width="2"/>
+  <rect x="120" y="440" width="520" height="52" rx="6" fill="#1d4ed8"/>
+  <rect x="120" y="485" width="520" height="7" fill="#1d4ed8"/>
+  <text x="380" y="474" class="table-name" text-anchor="middle">artworks</text>
+  <text x="145" y="525" class="key">PK  id : uuid</text>
+  <text x="145" y="555" class="key">FK  user_id : uuid NOT NULL</text>
+  <text x="145" y="585" class="field">title : varchar(200)</text>
+  <text x="145" y="615" class="field">image_url : text</text>
+  <text x="145" y="645" class="field">thumbnail_url : text NULL</text>
+  <text x="145" y="675" class="field">image_width, image_height : integer</text>
+  <text x="145" y="705" class="field">created_at, updated_at</text>
+
+  <!-- canvases -->
+  <rect x="1350" y="440" width="430" height="255" rx="6" fill="#ffffff" stroke="#334155" stroke-width="2"/>
+  <rect x="1350" y="440" width="430" height="52" rx="6" fill="#7c3aed"/>
+  <rect x="1350" y="485" width="430" height="7" fill="#7c3aed"/>
+  <text x="1565" y="474" class="table-name" text-anchor="middle">canvases</text>
+  <text x="1375" y="525" class="key">PK  id : uuid</text>
+  <text x="1375" y="555" class="key">FK  user_id : uuid NOT NULL</text>
+  <text x="1375" y="585" class="field">name : varchar(150)</text>
+  <text x="1375" y="615" class="field">created_at, updated_at</text>
+
+  <!-- image_features -->
+  <rect x="60" y="935" width="510" height="325" rx="6" fill="#ffffff" stroke="#334155" stroke-width="2"/>
+  <rect x="60" y="935" width="510" height="52" rx="6" fill="#b45309"/>
+  <rect x="60" y="980" width="510" height="7" fill="#b45309"/>
+  <text x="315" y="969" class="table-name" text-anchor="middle">image_features</text>
+  <text x="85" y="1020" class="key">PK  id : uuid</text>
+  <text x="85" y="1050" class="key">FK  artwork_id : uuid NOT NULL</text>
+  <text x="85" y="1080" class="field">model_version : varchar(50)</text>
+  <text x="85" y="1110" class="field">embedding : vector</text>
+  <text x="85" y="1140" class="field">dominant_color_hex : char(7)</text>
+  <text x="85" y="1170" class="field">brightness_score, contrast_score</text>
+  <text x="85" y="1200" class="field">created_at, updated_at</text>
+
+  <!-- image_check_results -->
+  <rect x="630" y="935" width="530" height="325" rx="6" fill="#ffffff" stroke="#334155" stroke-width="2"/>
+  <rect x="630" y="935" width="530" height="52" rx="6" fill="#be123c"/>
+  <rect x="630" y="980" width="530" height="7" fill="#be123c"/>
+  <text x="895" y="969" class="table-name" text-anchor="middle">image_check_results</text>
+  <text x="655" y="1020" class="key">PK  id : uuid</text>
+  <text x="655" y="1050" class="key">FK  artwork_id : uuid NOT NULL</text>
+  <text x="655" y="1080" class="field">model_version : varchar(50)</text>
+  <text x="655" y="1110" class="field">status : varchar(20)</text>
+  <text x="655" y="1140" class="field">score : numeric(5,4)</text>
+  <text x="655" y="1170" class="field">message : text NULL</text>
+  <text x="655" y="1200" class="field">checked_at, created_at, updated_at</text>
+
+  <!-- canvas_items -->
+  <rect x="1280" y="840" width="620" height="420" rx="6" fill="#ffffff" stroke="#334155" stroke-width="2"/>
+  <rect x="1280" y="840" width="620" height="52" rx="6" fill="#0369a1"/>
+  <rect x="1280" y="885" width="620" height="7" fill="#0369a1"/>
+  <text x="1590" y="874" class="table-name" text-anchor="middle">canvas_items</text>
+  <text x="1305" y="925" class="key">PK  id : uuid</text>
+  <text x="1305" y="955" class="key">FK  canvas_id : uuid NOT NULL</text>
+  <text x="1305" y="985" class="key">FK  artwork_id : uuid NOT NULL</text>
+  <text x="1305" y="1015" class="field">x_position, y_position : numeric</text>
+  <text x="1305" y="1045" class="field">item_width, item_height : numeric</text>
+  <text x="1305" y="1075" class="field">rotation : numeric DEFAULT 0</text>
+  <text x="1305" y="1105" class="field">z_index : integer</text>
+  <text x="1305" y="1135" class="field">created_at, updated_at</text>
+
+  <!-- relationships -->
+  <path d="M880 325 V380 H380 V440" class="relation"/>
+  <text x="820" y="365" class="cardinality">1</text>
+  <text x="395" y="425" class="cardinality">N</text>
+  <text x="560" y="365" class="subtitle">owns</text>
+
+  <path d="M1120 325 V380 H1565 V440" class="relation"/>
+  <text x="1135" y="365" class="cardinality">1</text>
+  <text x="1580" y="425" class="cardinality">N</text>
+  <text x="1340" y="365" class="subtitle">owns</text>
+
+  <path d="M270 805 V935" class="relation"/>
+  <text x="285" y="835" class="cardinality">1</text>
+  <text x="285" y="920" class="cardinality">N</text>
+  <text x="290" y="885" class="subtitle">extracts</text>
+
+  <path d="M520 805 V865 H895 V935" class="relation"/>
+  <text x="535" y="835" class="cardinality">1</text>
+  <text x="910" y="920" class="cardinality">N</text>
+  <text x="690" y="850" class="subtitle">checks</text>
+
+  <path d="M640 620 H1210 V1050 H1280" class="relation"/>
+  <text x="655" y="605" class="cardinality">1</text>
+  <text x="1245" y="1035" class="cardinality">N</text>
+  <text x="1170" y="820" class="subtitle">uses</text>
+
+  <path d="M1565 695 V840" class="relation"/>
+  <text x="1580" y="725" class="cardinality">1</text>
+  <text x="1580" y="825" class="cardinality">N</text>
+  <text x="1585" y="780" class="subtitle">contains</text>
+</svg>

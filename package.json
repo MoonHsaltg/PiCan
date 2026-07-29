@@ -4,8 +4,9 @@
   "version": "0.1.0",
   "packageManager": "pnpm@11.9.0",
   "scripts": {
-    "dev:frontend": "pnpm --filter frontend dev",
-    "build:frontend": "pnpm --filter frontend build",
-    "typecheck:frontend": "pnpm --filter frontend typecheck"
+    "dev:frontend": "pnpm --filter pican-web dev",
+    "lint:frontend": "pnpm --filter pican-web lint",
+    "build:frontend": "pnpm --filter pican-web build",
+    "typecheck:frontend": "pnpm --filter pican-web typecheck"
   }
 }
