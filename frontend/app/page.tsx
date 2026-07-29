@@ -12,7 +12,7 @@ export default function HomePage() {
   return (
     <main className="page-shell">
       <header className="topbar">
-        <strong>ArtCanvas</strong>
+        <strong>PiCan</strong>
         <nav aria-label="Điều hướng chính">
           <Link href="/login">Đăng nhập</Link>
           <Link href="/register">Đăng ký</Link>
@@ -41,4 +41,3 @@ export default function HomePage() {
     </main>
   );
 }
-

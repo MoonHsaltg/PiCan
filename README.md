@@ -1,6 +1,6 @@
-# ArtCanvas
+# PiCan
 
-ArtCanvas là MVP giúp người dùng tải tranh lên thư viện cá nhân, đặt tranh lên
+PiCan là MVP giúp người dùng tải tranh lên thư viện cá nhân, đặt tranh lên
 canvas để sắp xếp và ghi chú, sau đó gửi ảnh sang dịch vụ AI để kiểm tra.
 
 ## Tiến độ Day 1
@@ -18,13 +18,13 @@ Tài liệu chi tiết nằm trong [docs/day1](docs/day1/README.md).
 ## Cấu trúc
 
 ```text
-artcanvas/
+pican/
 ├── frontend/              # Next.js App Router + TypeScript
 ├── ai-service/            # FastAPI
 ├── supabase/              # PostgreSQL migration và RLS
 ├── docs/day1/             # Nội dung đã hoàn thành trong sheet Day1
 ├── .vscode/               # Cấu hình VS Code
-└── ArtCanvas.code-workspace
+└── PiCan.code-workspace
 ```
 
 ## Chạy frontend
@@ -67,4 +67,3 @@ Không commit `.env`, `.env.local`, mật khẩu, JWT hoặc API key lên GitHub
 - `develop`: nhánh tích hợp.
 - `feature/<ten-tinh-nang>`: phát triển tính năng.
 - Commit ngắn gọn, ví dụ: `docs: add Day 1 architecture`.
-

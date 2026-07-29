@@ -1,7 +1,7 @@
 {
   "folders": [
     {
-      "name": "ArtCanvas",
+      "name": "PiCan",
       "path": "."
     },
     {
@@ -20,4 +20,3 @@
     "python.defaultInterpreterPath": "${workspaceFolder:AI Service}/.venv/Scripts/python.exe"
   }
 }
-

@@ -4,7 +4,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    app_name: str = "ArtCanvas AI Service"
+    app_name: str = "PiCan AI Service"
     ai_model_version: str = "mvp-v1"
     supabase_url: str = ""
     supabase_service_role_key: str = ""
@@ -22,4 +22,3 @@ def get_settings() -> Settings:
 
 
 settings = get_settings()
-

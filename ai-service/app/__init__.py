@@ -1,2 +1,1 @@
-"""ArtCanvas AI service."""
-
+"""PiCan AI service."""

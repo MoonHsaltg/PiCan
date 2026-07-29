@@ -1,7 +1,7 @@
 export default function RegisterPage() {
   return (
     <main className="form-page">
-      <p className="eyebrow">ArtCanvas</p>
+      <p className="eyebrow">PiCan</p>
       <h1>Tạo tài khoản</h1>
       <form>
         <label>
@@ -17,4 +17,3 @@ export default function RegisterPage() {
     </main>
   );
 }
-

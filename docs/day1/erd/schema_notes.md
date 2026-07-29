@@ -1,4 +1,4 @@
-# ArtCanvas ERD - Ghi chú lược đồ
+# PiCan ERD - Ghi chú lược đồ
 
 ## 1. Phân biệt hai mức thiết kế
 
