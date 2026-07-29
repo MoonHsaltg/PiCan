@@ -1,0 +1,9 @@
+packages:
+  - frontend
+
+onlyBuiltDependencies:
+  - sharp
+
+confirmModulesPurge: false
+allowBuilds:
+  sharp: set this to true or false

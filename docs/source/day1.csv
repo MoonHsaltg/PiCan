@@ -1,0 +1,185 @@
+﻿Day 1,,,,,,,,,,,,,,,,,,,,,,,,,,,
+AC-001: 5 MVP,1,2,3,4,5,,,,,,,,,,,,,,,,,,,,,,
+Feature In Scope,User Authentication,Artwork Upload,Personal Gallery,Infinite Canvas,AI Image Check,,,,,,,,,,,,,,,,,,,,,,
+Mục đích,Người dùng đăng ký/đăng nhập,Upload ảnh lên hệ thống,Quản lý các ảnh của riêng mình,"Kéo thả ảnh lên canvas để ghi chú, sắp xếp",AI phân tích hoặc kiểm tra ảnh,,,,,,,,,,,,,,,,,,,,,,
+Out Scope,Social,Collaboration,Advanced Canvas,AI,Media,Gallery,3D,,,,,,,,,,,,,,,,,,,,
+,Like, Realtime multi-user editing, Layer locking, Image generation, Video, Video, 3D model,,,,,,,,,,,,,,,,,,,,
+, Comment, Share canvas, Smart snapping, Style transfer, GIF, GIF, 3D gallery,,,,,,,,,,,,,,,,,,,,
+, Follow, Invite collaborators, Vector drawing, Chatbot, Audio, Audio, Three.js scene,,,,,,,,,,,,,,,,,,,,
+, News Feed,, Shape library, Auto tagging,,,,,,,,,,,,,,,,,,,,,,,
+,,, History version,,,,,,,,,,,,,,,,,,,,,,,,
+,,,Multiplayer,,,,,,,,,,,,,,,,,,,,,,,,
+AC-002: User flow,1,2,3,4,5,6,Chỉ ra,,,,,,,,,,,,,,,,,,,,
+Flow,Đăng kí,Đăng nhập,gallery,upload tranh,thêm vào gallery,AI check,Success,,,,,,,,,,,,,,,,,,,,
+,,,,,,,Upload fail,,,,,,,,,,,,,,,,,,,,
+,,,,,,,AI service unavailable.,,,,,,,,,,,,,,,,,,,,
+,,,,,,,Nghi ngờ giả mạo,,,,,,,,,,,,,,,,,,,,
+AC-003: Architecture,,,1,2,,,3,,,,,,,,,,,,,,,,,,,,
+,,,Next.js: Frontend + Authentication UI,Supabase,,,Fast API,,,,,,,,,,,,,,,,,,,,
+,,,,Auth,Database,Storage,,,,,,,,,,,,,,,,,,,,,
+,,,"Đăng ký
+Đăng nhập
+Gallery
+Canvas
+Upload ảnh
+Gọi API","Login
+Register
+JWT
+Session","profiles
+
+artworks
+
+canvas_items
+
+image_check_results","artworks
+
+id
+title
+image_url
+user_id",,,,,,,,,,,,,,,,,,,,,
+,,,"User
+ ↓
+Click Upload
+ ↓
+Next.js
+ ↓
+Upload file lên Supabase Storage
+ ↓
+Lưu metadata vào Database
+ ↓
+Hiển thị thành công","Email
+Password
+
+↓
+
+Supabase Auth
+
+↓
+
+JWT Token",,"image.png
+
+↓
+
+Supabase Storage","Upload
+
+↓
+
+Lưu ảnh
+
+↓
+
+Upload thành công",Sau đó,"Background
+
+↓
+
+FastAPI
+
+↓
+
+AI Check",,,,,,,,,,,,,,,,,,
+AC-004: ERD,,,,,,,,,,,,,,,,,,,,,,,,,,,
+"ArtCanvas ERD - Ghi chú lược đồ
+
+## 1. Phân biệt hai mức thiết kế
+
+- Trang 1 trong file draw.io là **conceptual ERD** theo ký pháp Chen: thực thể, quan hệ, khóa, cardinality và participation. Trang này không ghi foreign key.
+- Trang 2 là **logical relational schema**: gồm đúng 6 bảng, có PK và FK để có thể triển khai trên PostgreSQL/Supabase.
+
+## 2. Cardinality và participation
+
+| Relationship | Phía cha | Phía con | Ý nghĩa |
+|---|---:|---:|---|
+| profiles owns artworks | profiles 0..N | artworks 1..1 | Mỗi artwork bắt buộc thuộc đúng một profile |
+| profiles owns canvases | profiles 0..N | canvases 1..1 | Mỗi canvas bắt buộc thuộc đúng một profile |
+| artworks uses canvas_items | artworks 0..N | canvas_items 1..1 | Mỗi item bắt buộc tham chiếu đúng một artwork |
+| canvases contains canvas_items | canvases 0..N | canvas_items 1..1 | Mỗi item bắt buộc nằm trong đúng một canvas |
+| artworks extracts image_features | artworks 0..N | image_features 1..1 | Mỗi bộ đặc trưng bắt buộc thuộc đúng một artwork |
+| artworks checks image_check_results | artworks 0..N | image_check_results 1..1 | Mỗi kết quả kiểm tra bắt buộc thuộc đúng một artwork |
+
+Phía con tham gia toàn phần, nên được vẽ bằng đường đôi và FK phải là NOT NULL. Mũi tên trong ERD trỏ về phía ""one"".
+
+## 3. Khóa và ràng buộc chính
+
+- profiles.id là PK; khi dùng Supabase, đồng thời có thể là FK đến auth.users.id.
+- artworks.user_id và canvases.user_id tham chiếu profiles.id.
+- canvas_items.canvas_id tham chiếu canvases.id.
+- canvas_items.artwork_id, image_features.artwork_id và image_check_results.artwork_id tham chiếu artworks.id.
+- image_features đặt UNIQUE(artwork_id, model_version) để một phiên bản model chỉ tạo một bộ đặc trưng cho mỗi artwork.
+- image_width, image_height, item_width và item_height phải lớn hơn 0.
+- score, brightness_score và contrast_score nằm trong khoảng 0 đến 1.
+- status nên dùng CHECK, ví dụ: pending, passed, failed, error.
+
+## 4. Kiểm tra chuẩn hóa
+
+- Mỗi bảng có một khóa xác định toàn bộ thuộc tính còn lại.
+- Không lặp user_id trong canvas_items, image_features hoặc image_check_results. Ownership được suy ra qua FK, tránh phụ thuộc bắc cầu và dữ liệu mâu thuẫn.
+- Không lưu nhiều màu trong một chuỗi/JSON. MVP chỉ lưu dominant_color_hex là một giá trị atomic.
+- embedding được xem là một giá trị atomic của kiểu vector trong PostgreSQL.
+- Với các functional dependency đã nêu, 6 bảng đạt BCNF: mọi FD không tầm thường đều có vế trái là một superkey.",,,,,,,,,,Picture,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,Picture,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+AC-004: ERD,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,

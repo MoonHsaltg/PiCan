@@ -1,0 +1,23 @@
+{
+  "folders": [
+    {
+      "name": "ArtCanvas",
+      "path": "."
+    },
+    {
+      "name": "Frontend",
+      "path": "frontend"
+    },
+    {
+      "name": "AI Service",
+      "path": "ai-service"
+    }
+  ],
+  "settings": {
+    "editor.formatOnSave": true,
+    "files.eol": "\n",
+    "typescript.tsdk": "frontend/node_modules/typescript/lib",
+    "python.defaultInterpreterPath": "${workspaceFolder:AI Service}/.venv/Scripts/python.exe"
+  }
+}
+

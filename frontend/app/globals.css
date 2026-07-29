@@ -1,0 +1,148 @@
+:root {
+  color-scheme: light;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f7f7f5;
+  color: #171717;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+.page-shell {
+  min-height: 100vh;
+}
+
+.topbar {
+  align-items: center;
+  background: #ffffff;
+  border-bottom: 1px solid #d9d9d4;
+  display: flex;
+  justify-content: space-between;
+  min-height: 64px;
+  padding: 0 32px;
+}
+
+.topbar nav {
+  display: flex;
+  gap: 20px;
+}
+
+.intro {
+  margin: 0 auto;
+  max-width: 960px;
+  padding: 72px 32px 48px;
+}
+
+.intro h1 {
+  font-size: clamp(36px, 6vw, 64px);
+  letter-spacing: 0;
+  line-height: 1.05;
+  margin: 12px 0 20px;
+  max-width: 850px;
+}
+
+.intro p {
+  font-size: 18px;
+  line-height: 1.6;
+  max-width: 680px;
+}
+
+.eyebrow {
+  color: #8a2d2d;
+  font-size: 14px !important;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.primary-action {
+  background: #171717;
+  color: #ffffff;
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 18px;
+  text-decoration: none;
+}
+
+.feature-list {
+  border-top: 1px solid #d9d9d4;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+.feature-list article {
+  border-right: 1px solid #d9d9d4;
+  min-height: 130px;
+  padding: 24px;
+}
+
+.feature-list article:last-child {
+  border-right: 0;
+}
+
+.feature-list h2 {
+  font-size: 17px;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.form-page,
+.content-page {
+  margin: 0 auto;
+  max-width: 720px;
+  padding: 64px 24px;
+}
+
+.form-page form {
+  display: grid;
+  gap: 16px;
+  margin-top: 28px;
+}
+
+.form-page label {
+  display: grid;
+  font-weight: 600;
+  gap: 8px;
+}
+
+.form-page input {
+  border: 1px solid #a8a8a2;
+  font: inherit;
+  min-height: 44px;
+  padding: 8px 10px;
+}
+
+.form-page button {
+  background: #171717;
+  border: 0;
+  color: #ffffff;
+  font: inherit;
+  min-height: 44px;
+}
+
+@media (max-width: 760px) {
+  .topbar {
+    padding: 0 20px;
+  }
+
+  .feature-list {
+    grid-template-columns: 1fr;
+  }
+
+  .feature-list article {
+    border-bottom: 1px solid #d9d9d4;
+    border-right: 0;
+    min-height: auto;
+  }
+}
+
