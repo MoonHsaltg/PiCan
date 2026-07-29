@@ -1,5 +1,7 @@
 # PiCan
 
+> A social space for art and humanity, where everyone can express their human side.
+
 PiCan là MVP giúp người dùng tải tranh lên thư viện cá nhân, đặt tranh lên
 canvas để sắp xếp và ghi chú, sau đó gửi ảnh sang dịch vụ AI để kiểm tra.
 
