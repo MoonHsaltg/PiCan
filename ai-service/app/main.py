@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from app.api.routes import health, image_check
+from app.api.routes import health, image_check, image_validation
 from app.core.config import settings
 
 app = FastAPI(
@@ -11,3 +11,4 @@ app = FastAPI(
 
 app.include_router(health.router)
 app.include_router(image_check.router, prefix="/api/v1")
+app.include_router(image_validation.router, prefix="/api/v1")
