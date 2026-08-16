@@ -4,8 +4,11 @@ import type { ReactNode } from "react";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "PiCan",
-  description: "Personal artwork gallery, canvas and AI image check.",
+  title: {
+    default: "PiCan - Ghim ý tưởng lên Canvas",
+    template: "%s | PiCan",
+  },
+  description: "Không gian sáng tạo chung dành cho tranh, sketch và những ý tưởng đang lớn lên.",
 };
 
 export default function RootLayout({

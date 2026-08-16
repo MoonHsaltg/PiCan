@@ -13,6 +13,7 @@
     "@supabase/ssr": "^0.12.4",
     "@supabase/supabase-js": "latest",
     "konva": "^10.3.0",
+    "lucide-react": "^1.31.0",
     "next": "latest",
     "react": "latest",
     "react-dom": "latest",
